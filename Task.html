@@ -1,0 +1,220 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+            float: left;
+            margin-left: 20px;
+        }
+    </style>
+</head>
+
+<body style=" background-image: linear-gradient(to bottom right,rgb(75, 192, 212), rgb(238, 73, 238));">
+    <div style="width: 100%;">
+        <h2 style="margin-top: 25px; margin-left: 25px;">Employee Portal:</h2>
+        <form action="" autocomplete="off" style="margin-left: 100px; margin-top: 100px;">
+
+            <div>
+                <label for="">Emp_id</label>
+                <br>
+                <input type="number" id="Emp_id">
+                <br>
+                <span id="id_error" style="color: red;"></span>
+            </div>
+            <div>
+                <label for="">Name</label>
+                <br>
+                <input type="text" id="Name" pattern="[a-zA-Z]+">
+                <br>
+                <span id="Name_error" style="color: red;"></span>
+            </div>
+            <div>
+                <label for="">Age</label>
+                <br>
+                <input type="number" name="" id="Age">
+                <br>
+                <span id="Age_error" style="color: red;"></span>
+            </div>
+            <div>
+                <label for="">Gender</label>
+                <br>
+                <select id="gender">
+                    <option value=""> select</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                </select>
+                <br>
+                <span id="gender_error" style="color: red;"></span>
+            </div>
+
+            <br>
+
+            <button type="submit" onclick="onFormSubmit();return false  " style="float: left; margin-top: 30px;padding-top: 2px;padding-left: 5px;padding-bottom: 2px;padding-right: 5px; width: 50px;
+            display: block;">Add</button>
+        </form>
+    </div>
+    <div style="margin-top: 25px;margin-left: 25px;width: 100%;">
+        <h3>Employee Details</h3>
+        <div style="margin-top: 50px; ">
+
+            <table id="employeelist" border="1"style="border-color:white; " >
+                <tr style="border-color: black; border: 1px;border: solid;">
+                    <th>Emp_id</th>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Gender</th>
+                    <th>Action</th>
+                </tr>
+                <tbody>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div>
+        <form action="" id="popup" style="display: none; background-color: aliceblue;">
+            <label for="">Emp_id</label>
+            <input type="number" id="Emp_id">
+            <br>
+            <label for="">Name</label>
+            <input type="text" id="Name" pattern="[a-zA-Z]+">
+            <br>
+            <label for="">Age</label>
+            <input type="number" name="" id="Age">
+            <br>
+            <label for="">Gender</label>
+            <select id="gender">
+                <option value=""> select</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+            </select>
+            <button type="submit">Update</button>
+            <button onclick="closeForm(); return false">Cancel</button>
+        </form>
+    </div>
+    <script>
+        function closeForm() {
+            document.getElementById("myForm").style.display = "none";
+        }
+        function openForm() {
+            document.getElementById("popup").style.display = "block";
+        }
+        function onEdit(td) {
+            openForm()
+            document.getElementById("Emp_id").innerHTML(cell1).value
+        }
+
+
+        function onFormSubmit() {
+            var formdata = readformdata();
+            Instructions()
+            InsertNewRecord(formdata);
+            console.log()
+
+        }
+
+        function readformdata() {
+            var formdata = {}
+            formdata["Emp_id"] = document.getElementById("Emp_id").value;
+            formdata["Name"] = document.getElementById("Name").value;
+            formdata["Age"] = document.getElementById("Age").value;
+            formdata["gender"] = document.getElementById("gender").value;
+
+
+            return formdata
+
+        }
+
+        function InsertNewRecord(data) {
+            var table = document.getElementById("employeelist").getElementsByTagName("tbody")[0]
+            var newRow = table.insertRow(table.length);
+            cell1 = newRow.insertCell(0);
+            cell1.innerHTML = data.Emp_id;
+            cell2 = newRow.insertCell(1);
+            cell2.innerHTML = data.Name;
+            cell3 = newRow.insertCell(2);
+            cell3.innerHTML = data.Age;
+            cell4 = newRow.insertCell(3);
+            cell4.innerHTML = data.gender;
+            cell5 = newRow.insertCell(4);
+            cell5.innerHTML = ` <button onclick="onEdit(this)">Edit</button><button onclick="Delete()">Delete</button>`
+
+        }
+        function Delete() {
+
+            
+        }
+
+        function Instructions() {
+            var Emp_id = document.getElementById("Emp_id").value
+            if (Emp_id == "") {
+                document.getElementById("id_error").innerHTML = "This field is mandatory"
+                // return false
+            }
+            else {
+                if (Emp_id <= 0) {
+                    document.getElementById("id_error").innerHTML = "Emp_id should be always Natural Number"
+                    // return false
+                }
+
+                else {
+                    document.getElementById("id_error").innerHTML = ""
+
+                }
+            }
+            console.log(Emp_id)
+
+            var Name = document.getElementById("Name").value
+            if (Name == "") {
+                document.getElementById("Name_error").innerHTML = "Name should be in alphabets only"
+                // return false
+            }
+            // else{
+            // if (Name != a-z) {
+            // document.getElementById("Name_error").innerHTML = ""
+            // }
+            else {
+                document.getElementById("Name_error").innerHTML = ""
+            }
+            // }
+            console.log(Name)
+
+            var Age = document.getElementById("Age").value
+            if (Age == "") {
+                document.getElementById("Age_error").innerHTML = "This field is mandatory"
+                return false
+            }
+            else {
+                if (Age < 18 || Age > 60) {
+                    document.getElementById("Age_error").innerHTML = "you are not Eligible"
+                    return false
+                }
+                else {
+                    document.getElementById("Age_error").innerHTML = ""
+                }
+            }
+            console.log(Age)
+
+
+            var Gender = document.getElementById("gender").value
+            if (Gender == "") {
+                document.getElementById("gender_error").innerHTML = "Please select an option"
+                return false
+            }
+            else {
+                document.getElementById("gender_error").innerHTML = ""
+            }
+            console.log(Gender)
+            return false
+
+        }
+
+    </script>
+</body>
+
+</html>
