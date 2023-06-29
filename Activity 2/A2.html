@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css">
+    
+</head>
+
+<body>
+    <div class="container">
+        <h1>Task Planner</h1>
+        <div class="form">
+            <div class="form1">
+                <form autocomplete="off" onsubmit="onFormSubmit(event);" name="a">
+                    
+                    <label for="">Activity</label>
+                    <input type="text" id="act" name="Activity" required pattern="[a-zA-Z0-9\s]+"  style="margin-left: 10px;">
+                    <span id="error_activity"></span><br>
+                    <span id="" style="margin-left: 200px;" >Input should be in alphanumeric form only</span>
+                    <br>
+                    <label for="">Start Date</label>
+                    <input type="date" id="sdate" name="startdate" required>
+                    <span id="error_sdate"></span>
+                    <br>
+                    <label for="">End Date</label>
+                    <input type="date" id="edate" name="enddate" style="margin-left: 2px;" required>
+                    <span id="error_edate"></span>
+                    <br>
+                    <label for="">Satus</label>
+                    <select name="status" id="status" style="margin-left: 25px;" required>
+                        <option value="">select</option>
+                        <option value="In-progress">In-progress</option>
+                        <option value="completed">completed</option>
+                        <option value="Pending">Pending</option>
+                        <option value="Due passed">Due passed</option>
+                    </select>
+                    <!-- <span id="error" style="margin-left: auto; margin-right: auto;">all field should be mandatory  </span><br> -->
+                   
+                    <button type="submit" id="Add" name="Add" style="background-color: rgb(70, 228, 70);">Add</button>
+                </form>
+            </div>
+            <div class="form2"></div>
+        </div>
+        <div class="table">
+            <table id="task_list">
+                <tr>
+                    <th>Activity</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Satus</th>
+                    <th>Action</th>
+                </tr>
+                <tbody></tbody>
+            </table>
+            <button>Search</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
